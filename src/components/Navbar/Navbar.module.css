@@ -1,13 +1,12 @@
 .navbar {
     display: flex;
     align-items: center;
-    border: 1px solid grey;
     height: 60px; /* Change the height to your desired value */
 }
   
 .navbar_item a {
     text-decoration: none;
-    color: green;
+    color: rgb(82, 191, 82);
     font-size: 20px; /* Change the font size to your desired value */
 }
   
@@ -20,11 +19,13 @@ ul {
   
 .navbar_item {
     margin-right: 20px;
+    margin-left: 20px;
 }
   
 
 .navbar_item:hover {
-    background-color: gainsboro;
+    text-decoration: underline;
+    text-decoration-color: rgb(82, 191, 82);
 }
 
 .navbar_items_right {
