@@ -1,37 +1,50 @@
 import React, { useState } from 'react';
 
-const JournalEntry = () => {
-  const [title, setTitle] = useState('');
-  const [entry, setEntry] = useState('');
+const CreateEntry = () => {
+  const [data, setData] = useState({ key: 'value' });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Submit the entry to the server here
+  const handleChange = (event) => {
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:8000/api/create-entry/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log(jsonResponse.message);
+      } else {
+        console.error('Error creating entry:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error creating entry:', error);
+    }
   };
 
   return (
     <div>
-      <h1>Create Journal Entry</h1>
+      <h1>Create Entry</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="title">Title:</label>
+        {/* Add your form fields here */}
         <input
           type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          name="key"
+          value={data.key}
+          onChange={handleChange}
         />
-        <br />
-        <label htmlFor="entry">Entry:</label>
-        <textarea
-          id="entry"
-          value={entry}
-          onChange={(e) => setEntry(e.target.value)}
-        />
-        <br />
         <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
-export default JournalEntry;
+export default CreateEntry;
