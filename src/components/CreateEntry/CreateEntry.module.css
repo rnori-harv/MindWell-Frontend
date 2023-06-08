@@ -1,0 +1,14 @@
+.create {
+    color: grey;
+  }
+  
+.entry {
+    color: lightgreen;
+  }
+
+
+  .createEntryText {
+    font-size: 32px; /* Adjust the font size as needed */
+    color: grey;
+    margin-top: 0px;
+  }

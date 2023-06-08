@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import styles from './CreateEntry.module.css'; // Import the CSS file
+
 
 const CreateEntry = () => {
   const [data, setData] = useState({ key: 'value' });
@@ -32,7 +34,12 @@ const CreateEntry = () => {
 
   return (
     <div>
-      <h1>Create Entry</h1>
+      <header className={styles.header}>
+        <h2 className={styles.createEntryText}>
+          <span className={styles.create}>Create </span>
+          <span className={styles.entry}>Entry</span>
+        </h2>
+      </header>
       <form onSubmit={handleSubmit}>
         {/* Add your form fields here */}
         <input
