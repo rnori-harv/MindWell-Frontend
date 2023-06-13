@@ -12,3 +12,23 @@
     color: grey;
     margin-top: 0px;
   }
+
+  .inputField {
+    position: absolute;
+    top: 60%; /* Center the input field vertically */
+    left: 50%; /* Center the input field horizontally */
+    height: 50%; /* Set the height to 60% of the screen height */
+    min-height: 50%; /* Set the minimum height to 50% of the screen height */
+    max-height: 90%; /* Set the maximum height to 90% of the screen height */
+    transform: translate(-50%, -50%); /* Adjust the position to account for the input field's dimensions */
+    width: 90%;
+    font-family: 'Sans Serif';
+    resize: vertical;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    overflow: auto;
+    border: none;
+    text-align: left; /* Align the text to the left */
+    padding:5px; /* Remove any padding */
+    outline: none; /* Remove the outline */
+  }

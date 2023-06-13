@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import styles from './CreateEntry.module.css'; // Import the CSS file
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
 
 
 const CreateEntry = () => {
-  const [data, setData] = useState({ key: 'value' });
+  const [data, setData] = useState({ key: 'Press Shift + Enter to submit' });
 
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.shiftKey && event.key === 'Enter') {
+      handleSubmit(event);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -23,7 +31,8 @@ const CreateEntry = () => {
 
       if (response.ok) {
         const jsonResponse = await response.json();
-        console.log(jsonResponse.message);
+        console.log(jsonResponse);
+        setData({key: jsonResponse.message  })
       } else {
         console.error('Error creating entry:', response.statusText);
       }
@@ -40,16 +49,21 @@ const CreateEntry = () => {
           <span className={styles.entry}>Entry</span>
         </h2>
       </header>
-      <form onSubmit={handleSubmit}>
-        {/* Add your form fields here */}
-        <input
-          type="text"
-          name="key"
-          value={data.key}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <textarea
+        className={styles.inputField}
+        type="text"
+        name="key"
+        value={data.key}
+        onChange={handleChange}
+        onClick={() => {
+          if (data.key === 'Press Shift + Enter to submit') {
+            setData({ ...data, key: '' });
+          }
+        }}
+        onKeyDown={handleKeyDown}
+        placeholder="Press Shift + Enter to submit"
+        style={{ color: 'grey' }}
+      />
     </div>
   );
 };
