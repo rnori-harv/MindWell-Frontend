@@ -9,20 +9,6 @@ const Navbar = () => {
         <li className={styles.navbar_item}>
           <Link to="/">Home</Link>
         </li>
-        <li className={styles.navbar_item}>
-          <Link to="/create-entry">Create Entry</Link>
-        </li>
-        <li className={styles.navbar_item}>
-          <Link to="/list-entries">List Entries</Link>
-        </li>
-      </ul>
-      <ul className={styles.navbar_items_right}>
-        <li className={styles.navbar_item}>
-          <Link to="/signup">Sign Up</Link>
-        </li>
-        <li className={styles.navbar_item}>
-          <Link to="/login">Log In</Link>
-        </li>
       </ul>
     </nav>
   );

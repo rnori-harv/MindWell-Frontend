@@ -1,25 +1,36 @@
 import React, { useState } from 'react';
-import styles from './CreateEntry.module.css'; // Import the CSS file
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-
+import styles from './CreateEntry.module.css';
+import Modal from 'react-modal';
 
 const CreateEntry = () => {
   const [data, setData] = useState({ key: 'Press Shift + Enter to submit' });
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProcessingModalOpen, setIsProcessingModalOpen] = useState(false);
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
   };
-
   const handleKeyDown = (event) => {
     if (event.shiftKey && event.key === 'Enter') {
       handleSubmit(event);
     }
   };
-
+  const openModal = (message) => {
+    setData({ key: message });
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setData({ key: '' });
+    setIsModalOpen(false);
+  };
+  const openProcessingModal = () => {
+    setIsProcessingModalOpen(true);
+  };
+  const closeProcessingModal = () => {
+    setIsProcessingModalOpen(false);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    openProcessingModal(); // Open the processing modal
     try {
       const response = await fetch('http://localhost:8000/api/create-entry/', {
         method: 'POST',
@@ -28,19 +39,21 @@ const CreateEntry = () => {
         },
         body: JSON.stringify(data),
       });
-
+      closeProcessingModal(); // Close the processing modal
       if (response.ok) {
         const jsonResponse = await response.json();
         console.log(jsonResponse);
-        setData({key: jsonResponse.message  })
+
+        // Open the modal with the message from the server response
+        openModal(jsonResponse.message);
       } else {
         console.error('Error creating entry:', response.statusText);
       }
     } catch (error) {
+      closeProcessingModal(); // Close the processing modal
       console.error('Error creating entry:', error);
     }
   };
-
   return (
     <div>
       <header className={styles.header}>
@@ -64,6 +77,21 @@ const CreateEntry = () => {
         placeholder="Press Shift + Enter to submit"
         style={{ color: 'grey' }}
       />
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Server Response"
+      >
+        <h2>Server Response</h2>
+        <p>{data.key}</p>
+        <button onClick={closeModal}>Close</button>
+      </Modal>
+      <Modal
+        isOpen={isProcessingModalOpen}
+        contentLabel="Processing Entry"
+      >
+        <h2>Processing your entry</h2>
+      </Modal>
     </div>
   );
 };

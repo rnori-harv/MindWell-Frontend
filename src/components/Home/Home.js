@@ -28,9 +28,13 @@ function App() {
     if (apiKey) {
       try {
         const response = await axios.post('http://localhost:8000/api/api_key/submit/', { apiKey });
-        console.log(response.data.message);
+        if (response.data.status === 'success') {
         // Navigate to the "Create Entry" page
-        navigate('/create-entry');
+          navigate('/create-entry');
+        } else {
+          setApiKey('');
+          alert('Please enter a valid API key.');
+        }
       } catch (error) {
         console.error('Error submitting API key:', error);
       }
