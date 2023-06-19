@@ -17,9 +17,10 @@
     position: absolute;
     top: 60%; /* Center the input field vertically */
     left: 50%; /* Center the input field horizontally */
-    height: 50%; /* Set the height to 60% of the screen height */
-    min-height: 70%; /* Set the minimum height to 50% of the screen height */
+    height: 90%; /* Set the height to 60% of the screen height */
+    min-height: 50px; /* Set the minimum height to 50% of the screen height */
     max-height: 90%; /* Set the maximum height to 90% of the screen height */
+    margin-top: 20px;
     transform: translate(-50%, -50%); /* Adjust the position to account for the input field's dimensions */
     width: 90%;
     font-family: 'Sans Serif';

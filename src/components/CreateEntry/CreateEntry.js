@@ -29,6 +29,12 @@ const CreateEntry = () => {
   const closeProcessingModal = () => {
     setIsProcessingModalOpen(false);
   };
+
+  const adjustHeight = (event) => {
+    event.target.style.height = 'auto'; // Reset the height to 'auto'
+    event.target.style.height = `${event.target.scrollHeight}px`; // Set the height to the scrollHeight
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     openProcessingModal(); // Open the processing modal
@@ -63,7 +69,7 @@ const CreateEntry = () => {
           <span className={styles.entry}>Entry</span>
         </h2>
       </header>
-      <EnhanceAI className={styles.inputField} 
+      <EnhanceAI
       context={"User is writing a journal entry about their day" +  
                 " and talking about their emotions."}>
         <textarea
@@ -72,6 +78,7 @@ const CreateEntry = () => {
           name="key"
           value={data.key}
           onChange={handleChange}
+          onInput={adjustHeight}
           onClick={() => {
             if (data.key === 'Press Shift + Enter to submit') {
               setData({ ...data, key: '' });
