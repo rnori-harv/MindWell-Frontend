@@ -31,8 +31,13 @@ const CreateEntry = () => {
   };
 
   const adjustHeight = (event) => {
-    event.target.style.height = 'auto'; // Reset the height to 'auto'
-    event.target.style.height = `${event.target.scrollHeight}px`; // Set the height to the scrollHeight
+    const textarea = event.target;
+    const isAtBottom = textarea.scrollTop + textarea.clientHeight >= textarea.scrollHeight;
+  
+    if (isAtBottom) {
+      textarea.style.height = 'auto'; // Reset the height to 'auto'
+      textarea.style.height = `${textarea.scrollHeight}px`; // Set the height to the scrollHeight
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -62,7 +67,7 @@ const CreateEntry = () => {
     }
   };
   return (
-    <div>
+    <div className ={styles.container}>
       <header className={styles.header}>
         <h2 className={styles.createEntryText}>
           <span className={styles.create}>Create </span>
