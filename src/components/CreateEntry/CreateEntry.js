@@ -65,7 +65,7 @@ const CreateEntry = () => {
       </header>
       <EnhanceAI className={styles.inputField} 
       context={"User is writing a journal entry about their day" +  
-                " and emotions"}>
+                " and talking about their emotions."}>
         <textarea
           className={styles.inputField}
           type="text"
