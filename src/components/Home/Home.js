@@ -15,14 +15,17 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function App() {
+const Home = ({ isHomePage, setIsHomePage }) => {
   const [apiKey, setApiKey] = useState('');
   const navigate = useNavigate();
 
+  const switchToCreateEntry = () => {
+    setIsHomePage(false);
+    console.log(isHomePage);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle the form submission logic here
-    console.log('API Key:', apiKey);
   
     // Check if the API key was submitted
     if (apiKey) {
@@ -30,6 +33,7 @@ function App() {
         const response = await axios.post('http://localhost:8000/api/api_key/submit/', { apiKey });
         if (response.data.status === 'success') {
         // Navigate to the "Create Entry" page
+          switchToCreateEntry();  
           navigate('/create-entry');
         } else {
           setApiKey('');
@@ -78,4 +82,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

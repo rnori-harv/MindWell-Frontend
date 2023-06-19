@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './CreateEntry.module.css';
 import Modal from 'react-modal';
+import {EnhanceAI} from "enhanceai";
 
 const CreateEntry = () => {
   const [data, setData] = useState({ key: 'Press Shift + Enter to submit' });
@@ -62,21 +63,25 @@ const CreateEntry = () => {
           <span className={styles.entry}>Entry</span>
         </h2>
       </header>
-      <textarea
-        className={styles.inputField}
-        type="text"
-        name="key"
-        value={data.key}
-        onChange={handleChange}
-        onClick={() => {
-          if (data.key === 'Press Shift + Enter to submit') {
-            setData({ ...data, key: '' });
-          }
-        }}
-        onKeyDown={handleKeyDown}
-        placeholder="Press Shift + Enter to submit"
-        style={{ color: 'grey' }}
-      />
+      <EnhanceAI className={styles.inputField} 
+      context={"User is writing a journal entry about their day" +  
+                " and emotions"}>
+        <textarea
+          className={styles.inputField}
+          type="text"
+          name="key"
+          value={data.key}
+          onChange={handleChange}
+          onClick={() => {
+            if (data.key === 'Press Shift + Enter to submit') {
+              setData({ ...data, key: '' });
+            }
+          }}
+          onKeyDown={handleKeyDown}
+          placeholder="Press Shift + Enter to submit"
+          style={{ color: 'grey' }}
+        />
+      </EnhanceAI>
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}

@@ -8,12 +8,21 @@ import EmotionTracker from './components/EmotionTracker/EmotionTracker';
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 
+import { useState } from 'react';
+
+
 function App() {
+  const [isHomePage, setIsHomePage] = useState(true);
+
+  const switchToCreateEntry = () => {
+    setIsHomePage(false);
+  };
+
   return (
     <Router>
-      <Navbar />
+      <Navbar isHomePage={isHomePage} setIsHomePage={setIsHomePage} />
 <Routes>
-  <Route exact path="/" element={<Home />} />
+  <Route exact path="/" switchToCreateEntry={switchToCreateEntry} element={<Home switchToCreateEntry={switchToCreateEntry} isHomePage={isHomePage} setIsHomePage={setIsHomePage} />} />
   <Route path="/create-entry" element={<CreateEntry />} />
   <Route path="/list-entries" element={<ListEntries />} />
   <Route path="/emotion-tracker" element={<EmotionTracker />} />
