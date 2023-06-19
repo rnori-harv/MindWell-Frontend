@@ -63,9 +63,6 @@ const CreateEntry = () => {
           <span className={styles.entry}>Entry</span>
         </h2>
       </header>
-      <EnhanceAI className={styles.inputField} 
-      context={"User is writing a journal entry about their day" +  
-                " and emotions"}>
         <textarea
           className={styles.inputField}
           type="text"
@@ -81,7 +78,6 @@ const CreateEntry = () => {
           placeholder="Press Shift + Enter to submit"
           style={{ color: 'grey' }}
         />
-      </EnhanceAI>
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
