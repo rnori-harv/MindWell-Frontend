@@ -7,8 +7,14 @@ const CreateEntry = () => {
   const [data, setData] = useState({ key: 'Press Shift + Enter to submit' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProcessingModalOpen, setIsProcessingModalOpen] = useState(false);
+
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
+
+    const percentage = (event.target.length / event.target.maxLength) * 100;
+  
+    // Update the background gradient
+    event.target.style.backgroundImage = `linear-gradient(to right, white, white ${percentage}%, transparent ${percentage}%)`;
   };
   const handleKeyDown = (event) => {
     if (event.shiftKey && event.key === 'Enter') {
@@ -91,9 +97,13 @@ const CreateEntry = () => {
         onRequestClose={closeModal}
         contentLabel="Server Response"
       >
-        <h2>Server Response</h2>
+        <h2 style={{ color: 'grey', textAlign: 'center' }}>Entry Breakdown</h2>
         <p>{data.key}</p>
-        <button onClick={closeModal}>Close</button>
+        <div className={styles.closeButtonContainer}>
+          <button className={styles.closeButton} onClick={closeModal}>
+            Close
+          </button>
+        </div>
       </Modal>
       <Modal
         isOpen={isProcessingModalOpen}
