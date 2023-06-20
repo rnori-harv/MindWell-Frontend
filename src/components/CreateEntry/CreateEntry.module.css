@@ -29,6 +29,37 @@
     overflow: auto;
     border: none;
     text-align: left; /* Align the text to the left */
-    padding:5px; /* Remove any padding */
+    padding:1px; /* Remove any padding */
     outline: none; /* Remove the outline */
+  }
+
+  .processingModal {
+    align-items: center;
+    justify-content: center;
+    width: 50%; /* Adjust the width as needed */
+    height: 30%; /* Adjust the height as needed */
+    border: white;
+    background-color: white; /* Set the background color to non-transparent */
+    transform: translate(50%, 30%); /* Adjust the position to account for the input field's dimensions */
+    outline: none;
+  }
+
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: lightgreen;
+    border-radius: 50%;
+    width: 30px;
+    align-self: center;
+    margin: auto;
+    height: 30px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }

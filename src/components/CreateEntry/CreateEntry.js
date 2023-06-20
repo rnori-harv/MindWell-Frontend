@@ -29,6 +29,13 @@ const CreateEntry = () => {
   const closeProcessingModal = () => {
     setIsProcessingModalOpen(false);
   };
+
+  const adjustHeight = (event) => {
+    const textarea = event.target;
+    textarea.style.height = 'auto'; // Reset the height to 'auto'
+    textarea.style.height = `${textarea.scrollHeight}px`; // Set the height to the scrollHeight
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     openProcessingModal(); // Open the processing modal
@@ -56,7 +63,7 @@ const CreateEntry = () => {
     }
   };
   return (
-    <div>
+    <div className ={styles.container}>
       <header className={styles.header}>
         <h2 className={styles.createEntryText}>
           <span className={styles.create}>Create </span>
@@ -69,6 +76,7 @@ const CreateEntry = () => {
           name="key"
           value={data.key}
           onChange={handleChange}
+          onInput={adjustHeight}
           onClick={() => {
             if (data.key === 'Press Shift + Enter to submit') {
               setData({ ...data, key: '' });
@@ -90,8 +98,10 @@ const CreateEntry = () => {
       <Modal
         isOpen={isProcessingModalOpen}
         contentLabel="Processing Entry"
+        className={styles.processingModal}
       >
-        <h2>Processing your entry</h2>
+        <h2 style={{ color: 'grey', textAlign: 'center' }}>Processing your entry</h2>
+        <div className={styles.spinner}></div>
       </Modal>
     </div>
   );
