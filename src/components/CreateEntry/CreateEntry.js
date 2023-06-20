@@ -8,6 +8,23 @@ const CreateEntry = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProcessingModalOpen, setIsProcessingModalOpen] = useState(false);
 
+  
+  const formatEmotionData = (data) => {
+    const emotions = data.split('\n');
+    const formattedData = emotions.map((emotion, index) => {
+      if (emotion.trim()) {
+        return (
+          <div key={index}>
+            {emotion}
+            <br />
+          </div>
+        );
+      }
+      return null;
+    });
+    return formattedData;
+  };
+
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
 
@@ -98,8 +115,11 @@ const CreateEntry = () => {
         contentLabel="Server Response"
       >
         <h2 style={{ color: 'grey', textAlign: 'center' }}>Entry Breakdown</h2>
-        <p>{data.key}</p>
-        <div className={styles.closeButtonContainer}>
+        <div className="emotionDataContainer">
+          <h3>Emotions displayed in your entry:</h3>
+          {formatEmotionData(data.key)}
+        </div>
+        <div className={styles.closeButtonContainer}> 
           <button className={styles.closeButton} onClick={closeModal}>
             Close
           </button>
