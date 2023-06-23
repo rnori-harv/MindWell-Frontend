@@ -13,8 +13,17 @@ const CreateEntry = () => {
     const emotions = data.split('\n');
     const formattedData = emotions.map((emotion, index) => {
       if (emotion.trim()) {
+        const isLastLine = index === emotions.length - 2;
+        const isIncomplete = (emotion.match(/"/g) || []).length !== 2;
+        
+        if (isLastLine && isIncomplete) {
+          return null;
+        }
+  
+        const isEmotion = emotion.startsWith("1.") || emotion.startsWith("2.") || emotion.startsWith("3.");
+        const className = isEmotion ? styles.emotion : styles.instance;
         return (
-          <div key={index}>
+          <div key={index} className={className}>
             {emotion}
             <br />
           </div>
@@ -116,7 +125,7 @@ const CreateEntry = () => {
       >
         <h2 style={{ color: 'grey', textAlign: 'center' }}>Entry Breakdown</h2>
         <div className="emotionDataContainer">
-          <h3>Emotions displayed in your entry:</h3>
+          <h3> Here were some of the most prevalent emotions we saw in your journal entry.</h3>
           {formatEmotionData(data.key)}
         </div>
         <div className={styles.closeButtonContainer}> 

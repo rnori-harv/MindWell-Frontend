@@ -21,6 +21,7 @@
     min-height: 70%; /* Set the minimum height to 50% of the screen height */
     max-height: 90%; /* Set the maximum height to 90% of the screen height */
     transform: translate(-50%, -50%); /* Adjust the position to account for the input field's dimensions */
+    margin-top: 50px;
     width: 90%;
     font-family: 'Sans Serif';
     resize: vertical;
@@ -55,14 +56,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
   }
 
-  .fade-in {
-    transition: opacity 1s ease;
-  }
-  .fade-out {
-    opacity: 0;
-    transition: opacity 1s ease;
+  .fadingText {
+    background-image: linear-gradient(to right, lightgrey, lightgrey 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
   }
 
   .closeButton {
@@ -93,6 +94,19 @@
     margin: auto;
     height: 30px;
     animation: spin 1s linear infinite;
+  }
+
+  .emotion {
+    font-weight: bold;
+    color: lightgreen;
+    font-family: sans-serif;
+    margin-bottom: 10px; 
+  }
+  
+  .instance {
+    margin-left: 20px;
+    font-family: sans-serif;
+    margin-bottom: 10px; 
   }
   
   @keyframes spin {
