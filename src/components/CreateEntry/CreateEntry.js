@@ -7,8 +7,40 @@ const CreateEntry = () => {
   const [data, setData] = useState({ key: 'Press Shift + Enter to submit' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProcessingModalOpen, setIsProcessingModalOpen] = useState(false);
+
+  
+  const formatEmotionData = (data) => {
+    const emotions = data.split('\n');
+    const formattedData = emotions.map((emotion, index) => {
+      if (emotion.trim()) {
+        const isLastLine = index === emotions.length - 2;
+        const isIncomplete = (emotion.match(/"/g) || []).length !== 2;
+        
+        if (isLastLine && isIncomplete) {
+          return null;
+        }
+  
+        const isEmotion = emotion.startsWith("1.") || emotion.startsWith("2.") || emotion.startsWith("3.");
+        const className = isEmotion ? styles.emotion : styles.instance;
+        return (
+          <div key={index} className={className}>
+            {emotion}
+            <br />
+          </div>
+        );
+      }
+      return null;
+    });
+    return formattedData;
+  };
+
   const handleChange = (event) => {
     setData({ ...data, [event.target.name]: event.target.value });
+
+    const percentage = (event.target.length / event.target.maxLength) * 100;
+  
+    // Update the background gradient
+    event.target.style.backgroundImage = `linear-gradient(to right, white, white ${percentage}%, transparent ${percentage}%)`;
   };
   const handleKeyDown = (event) => {
     if (event.shiftKey && event.key === 'Enter') {
@@ -29,6 +61,13 @@ const CreateEntry = () => {
   const closeProcessingModal = () => {
     setIsProcessingModalOpen(false);
   };
+
+  const adjustHeight = (event) => {
+    const textarea = event.target;
+    textarea.style.height = 'auto'; // Reset the height to 'auto'
+    textarea.style.height = `${textarea.scrollHeight}px`; // Set the height to the scrollHeight
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     openProcessingModal(); // Open the processing modal
@@ -56,7 +95,7 @@ const CreateEntry = () => {
     }
   };
   return (
-    <div>
+    <div className ={styles.container}>
       <header className={styles.header}>
         <h2 className={styles.createEntryText}>
           <span className={styles.create}>Create </span>
@@ -69,6 +108,7 @@ const CreateEntry = () => {
           name="key"
           value={data.key}
           onChange={handleChange}
+          onInput={adjustHeight}
           onClick={() => {
             if (data.key === 'Press Shift + Enter to submit') {
               setData({ ...data, key: '' });
@@ -83,15 +123,24 @@ const CreateEntry = () => {
         onRequestClose={closeModal}
         contentLabel="Server Response"
       >
-        <h2>Server Response</h2>
-        <p>{data.key}</p>
-        <button onClick={closeModal}>Close</button>
+        <h2 style={{ color: 'grey', textAlign: 'center' }}>Entry Breakdown</h2>
+        <div className="emotionDataContainer">
+          <h3> Here were some of the most prevalent emotions we saw in your journal entry.</h3>
+          {formatEmotionData(data.key)}
+        </div>
+        <div className={styles.closeButtonContainer}> 
+          <button className={styles.closeButton} onClick={closeModal}>
+            Close
+          </button>
+        </div>
       </Modal>
       <Modal
         isOpen={isProcessingModalOpen}
         contentLabel="Processing Entry"
+        className={styles.processingModal}
       >
-        <h2>Processing your entry</h2>
+        <h2 style={{ color: 'grey', textAlign: 'center' }}>Processing your entry</h2>
+        <div className={styles.spinner}></div>
       </Modal>
     </div>
   );
