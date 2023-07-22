@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './CreateEntry.module.css';
 import Modal from 'react-modal';
-import {EnhanceAI} from "enhanceai";
+
 
 const CreateEntry = () => {
   const [data, setData] = useState({ key: 'Press Shift + Enter to submit' });
