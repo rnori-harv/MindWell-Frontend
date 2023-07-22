@@ -30,7 +30,7 @@ const Home = ({ isHomePage, setIsHomePage }) => {
     // Check if the API key was submitted
     if (apiKey) {
       try {
-        const response = await axios.post('http://localhost:8000/api/api_key/submit/', { apiKey });
+        const response = await axios.post('https://mindwell-backend-91990103b961.herokuapp.com/api/api_key/submit/', { apiKey });
         if (response.data.status === 'success') {
         // Navigate to the "Create Entry" page
           switchToCreateEntry();  

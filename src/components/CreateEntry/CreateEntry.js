@@ -72,7 +72,7 @@ const CreateEntry = () => {
     event.preventDefault();
     openProcessingModal(); // Open the processing modal
     try {
-      const response = await fetch('http://localhost:8000/api/create-entry/', {
+      const response = await fetch('https://mindwell-backend-91990103b961.herokuapp.com/api/create-entry/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
